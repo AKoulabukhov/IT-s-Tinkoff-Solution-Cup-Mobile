@@ -21,6 +21,11 @@ final class PreviewComponentsFactory {
             makeSection(withButton: true).cardWrapped(style: .dark),
             makeSection(withButton: false).cardWrapped(style: .light),
             makeSection(withButton: false).cardWrapped(style: .dark),
+
+            makeSectionWithCards(withButton: true).cardWrapped(style: .light),
+            makeSectionWithCards(withButton: true).cardWrapped(style: .dark),
+            makeSectionWithCards(withButton: false).cardWrapped(style: .light),
+            makeSectionWithCards(withButton: false).cardWrapped(style: .dark),
         ]
     }
 
@@ -105,6 +110,46 @@ final class PreviewComponentsFactory {
         )
         content.items = (0..<4).map { _ in
             makeCardWithTitleLeftImage()
+        }
+        view.contentView = content
+
+        if withButton {
+            view.buttonText = "Button"
+            view.buttonAction = { print("Button action") }
+        }
+        
+        return view
+    }
+
+    private func makeSectionWithCards(withButton: Bool) -> SectionView<CollectionView<ItemCardView>> {
+        let view = SectionView<CollectionView<ItemCardView>>()
+        view.config = SectionConfig(
+            headerTextConfig: CellTextComponentView.Config(
+                titleStyle: .headingM,
+                titleColor: .primary
+            ),
+            headerButtonStyle: .link,
+            buttonStyle: .primary,
+            spacing: .m
+        )
+        view.title = "Header"
+        view.headerButtonText = "Button"
+        view.headerButtonAction = { print("header button action") }
+
+        let content = CollectionView<ItemCardView>()
+        content.layout = CollectionViewLayout(
+            axis: .horizontal,
+            spacing: 12,
+            scrollEnabled: true
+        )
+        content.items = (0..<4).map { _ in
+            let view = ItemCardView()
+            view.config = ItemCardView.Config()
+            view.title = "Title"
+            view.subtitle = "Subtitle"
+            view.image = DesignImage.favorites.uiImage
+            view.pinSize(CGSize(width: 140, height: 140))
+            return view
         }
         view.contentView = content
 

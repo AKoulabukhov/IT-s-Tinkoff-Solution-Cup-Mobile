@@ -31,6 +31,16 @@ public final class ItemCardView: UIView {
         didSet { onConfigUpdated() }
     }
 
+    public init() {
+        super.init(frame: .zero)
+        setup()
+    }
+
+    public required init?(coder: NSCoder) {
+        super.init(coder: coder)
+        setup()
+    }
+
     private func setup() {
         fitConstraints = addArrangedSubview(containerView)
 

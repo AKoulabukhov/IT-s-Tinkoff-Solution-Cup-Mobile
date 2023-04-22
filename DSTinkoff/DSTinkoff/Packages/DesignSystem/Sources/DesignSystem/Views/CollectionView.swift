@@ -27,6 +27,8 @@ public final class CollectionView<ItemView: UIView>: UIView {
     }
 
     private func setup() {
+        scrollView.showsHorizontalScrollIndicator = false
+        scrollView.showsVerticalScrollIndicator = false
         onLayoutUpdated()
     }
 
@@ -44,9 +46,9 @@ public final class CollectionView<ItemView: UIView>: UIView {
             }
         } else {
             addArrangedSubview(stackView)
-            stackView.axis = layout.axis.uiKitAxis
         }
 
+        stackView.axis = layout.axis.uiKitAxis
         stackView.spacing = layout.spacing
     }
 
